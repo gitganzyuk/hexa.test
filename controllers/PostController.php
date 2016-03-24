@@ -14,7 +14,15 @@ class PostController extends Controller
     {
         $post = new Post();
         return $this->render('index', [
-            'model' => $post->getPost(),
+            'model' => $post->getPosts(),
+        ]);
+    }
+
+    public function actionView($id)
+    {
+        $post = new Post();
+        return $this->render('view_one', [
+            'model' => $post->getPost($id),
         ]);
     }
 
@@ -23,7 +31,6 @@ class PostController extends Controller
         $model = new Post();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            //var_dump(Yii::$app->request->post());die;
             $model->image = UploadedFile::getInstance($model, 'image');
             $model->date = Yii::$app->formatter->asTimestamp($model->date);
             $model->image->name = $model->image->baseName . time() . '.' . $model->image->extension;

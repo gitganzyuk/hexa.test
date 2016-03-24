@@ -7,7 +7,7 @@ use yii\helpers\Html;
 foreach($model as $post): ?>
 <div class="col-sm-8 post-index">
 
-    <h1><?= Html::encode($post->title) ?></h1>
+    <h1><?= Html::a(Html::encode($post->title),\yii\helpers\Url::to(['post/view','id'=> $post->id])) ?></h1>
     <div class="meta">
         <p>Date: <?= Yii::$app->formatter->asDate($post->date, 'medium') ?></p>
     </div>

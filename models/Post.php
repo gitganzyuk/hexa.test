@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\behaviors\TimestampBehavior;
 use \yii\db\ActiveRecord;
 
 
@@ -35,7 +34,6 @@ class Post extends ActiveRecord
         //var_dump(Yii::$app->getFormatter());
         return [
             [['title', 'date', 'post'], 'required'],
-            //[['date'], 'default', 'value' => time()],
             [['date'], 'safe' ],
             [['post', 'tags'], 'string', 'max' => 32*1024],
             [['title'], 'string', 'max' => 200],
@@ -45,9 +43,16 @@ class Post extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function getPost()
+    public function getPosts()
     {
             return Post::find()->all();
+    }
+    /**
+     * @inheritdoc
+     */
+    public function getPost($id)
+    {
+        return Post::findOne(['id' => $id]);
     }
     /**
      * @inheritdoc
